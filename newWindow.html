@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>document.writes and window.open</title>
+<style type="text/css">
+span {font-family: arial; font-size: 14px}
+</style>
+
+<script type="text/javascript">
+if (window.addEventListener) {
+    // DOM2 standard
+    window.addEventListener("load", loadEventListeners, false);
+}
+else  {
+    //IE8 and earlier
+    window.attachEvent("onload", loadEventListeners);
+}
+
+function loadEventListeners(){
+  if(document.addEventListener){
+  document.getElementById("nameBox").addEventListener("change", writeToWindow, false);
+    }
+	
+function printWin() {
+  //alert("print window"); 
+   
+   //window.print(); in chrome and in firefox this function will print the parent window not the pop up window
+   if(navigator.appName=="Microsoft Internet Explorer"){
+    window.print();
+   }
+   
+   else{
+     openWin.print();// IE would not understand this
+   }
+}
+  
+ }
+ var openWin;
+ function writeToWindow(){
+   //alert("help me");
+   //object.nameOfYOurForm.idOfFormObject.property
+   //document.formName.ElementId.value
+   var tbValue= document.myForm.nameBox.value;
+       openWin= window.open("", "myWin", 'width=350, height=400 window-position=center');
+   openWin.document,write("")
+   openWin.document.write("<div style='color: red; font-weight: bold; font-family: verdana; font-size: 22px'>");
+   
+   openWin.document.write("hi there "+ tbValue);
+   openWin.document.write("</div>");
+   openWin.document.write("<br /><br />");
+   openWin.document.write("<h1>" + tbValue + " , I hope you have a nice day</h1>");
+   openWin.document.write("<form style='text-align: center'>");
+   openWin.document.write("<input type='button' id='myBtn' value='Print This Page!!!'>");
+   openWin.document.write("</form>");
+   
+   
+
+   if(document.addEventListener) {
+       openWin.document.getElementById("myBtn").addEventListener("click", printWin, false);
+       
+   }
+   
+   else{
+   }
+}
+</script>
+</head>
+<body>
+<form name="myForm">
+	<span>Please Enter Your Name</span><br />
+	<input type="text" id="nameBox"/>
+    
+</form>
+
+</body>
+</html>
+
+
+
